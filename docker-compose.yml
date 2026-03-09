@@ -1,0 +1,46 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.5.4
+    container_name: keycloak
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    command: start-dev
+    profiles: ["auth"]
+
+  ide:
+    image: ghcr.io/codecentric/trainings/keycloak-masterclass-vscode:latest
+    platform: linux/amd64
+    container_name: ide
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./backend:/config/workspace/backend
+      - ./frontend:/config/workspace/frontend
+    ports:
+      - "3001:3000"
+      - "5500:5500"
+    profiles: ["auth"]
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8081:8081"
+    profiles: ["app"]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    profiles: ["app"]
