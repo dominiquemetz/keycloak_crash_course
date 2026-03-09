@@ -14,13 +14,13 @@ public class DemoController {
     @PreAuthorize("hasAuthority('SCOPE_read:videos')")
     @GetMapping("/videos")
     public Response getVideos() {
-        return new Response("User is allowed to get videos!");
+        return new Response("Here are your videos!");
     }
 
     @PreAuthorize("hasAuthority('SCOPE_read:books')")
     @GetMapping("/books")
     public Response getBooks() {
-        return new Response("User is allowed to get books!");
+        return new Response("Here are your books!");
     }
 
     public record Response(String message) {

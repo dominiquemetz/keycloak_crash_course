@@ -56,17 +56,11 @@ function App() {
               cursor: 'pointer',
               transition: 'background-color 0.3s'
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#45a049'}
-            onMouseOut={(e) => e.target.style.backgroundColor = '#4CAF50'}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#45a049')}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#4CAF50')}
           >
             Sign In with Keycloak
           </button>
-
-          <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#e3f2fd', borderRadius: '5px', textAlign: 'left' }}>
-            <strong>Setup Checklist:</strong>
-            <ul style={{ marginTop: '10px', fontSize: '14px' }}>
-            </ul>
-          </div>
         </div>
       </div>
     );
